@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Acobrona.iml" filepath="$PROJECT_DIR$/Acobrona.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SnakeAndroid.iml" filepath="$PROJECT_DIR$/SnakeAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

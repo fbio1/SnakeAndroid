@@ -23,12 +23,14 @@ public class Configurar extends AppCompatActivity {
             params.putInt("tam", 30);
             i.putExtras(params);
             startActivity(i);
+//            finish();
         }else if(R.id.radio2 == radioGroup.getCheckedRadioButtonId()){
             Intent i = new Intent(c, Activity2.class);
             Bundle params = new Bundle();
             params.putInt("tam", 40);
             i.putExtras(params);
             startActivity(i);
+//            finish();
         }
     }
 

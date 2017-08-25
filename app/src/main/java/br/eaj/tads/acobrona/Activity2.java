@@ -3,6 +3,7 @@ package br.eaj.tads.acobrona;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.GridLayout;
@@ -14,15 +15,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Activity2 extends AppCompatActivity {
+    private Boolean running = true;
     int n;
     GridLayout layout;
     ImageView tabuleiro[][];
     ArrayList<int[]> cobra = new ArrayList<>();
     int direcao[] = new int[2];
     int posicao[] = new int[2];
-//  int posicaox;
-//  int posicaoy;
-//    int novaposicao[] = new int[2];
     int fruit[] = new int[2];
     int pontuacao;
 
@@ -130,23 +129,38 @@ public class Activity2 extends AppCompatActivity {
         movimento(direcao);//inicia o moviemnto da cobra
     }
 
+    public void play(View v){
+        running = true;
+        movimento(direcao);
+    }
+
+    public void pause(View v){
+        running = false;
+        movimento(direcao);
+    }
+
     public void movimento(final int[] direcao){
         final Handler handler = new Handler();
-//        //runnable
         new  Thread(new Runnable(){
             public void run(){
-//                //while
-                handler.postDelayed(new Runnable() {
+                while(running){
+                    try {
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();                    }
+
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         //LIMPAR A TELA COM FOR DE COBRA INT[] COBRA:COBRA{BRANCO}
-
-                        //inicializa o movimento da cobra
-//                        posicao = (int[]) cobra.get(cobra.size()-1);
-//                        novaposicao[0] = posicao[0];
-//                        novaposicao[1] = posicao[1];
-
-//                      //move o corpo
+                        Log.i("TESTES_", "tamanho"+cobra.size());
+                        for (int i = 0; i < cobra.size(); i++) {
+                            int[] pos = cobra.get(i);
+                            Log.i("TESTES_", "pintarbranco:" +pos[0]+pos[1]);
+                            branco(tabuleiro[pos[0]][pos[1]]);
+                        }
+                        cabecinha();
+                        //move o corpo
                         //if i !=0
 //                            cobra.get(i)[0] = cobra.get(i-1)[0];
 //                            cobra.get(i)[1] = cobra.get(i-1)[1];
@@ -155,22 +169,21 @@ public class Activity2 extends AppCompatActivity {
                             int[] pos = cobra.get(i);
                             preto(tabuleiro[pos[0]][pos[1]]);
                         }
-                        cabecinha(direcao);
-                        movimento(direcao);//metodo de repetiçao do movimento
-
                     }
-                },500);
+                });
+                }
             }
         }).start();
     }
 
-    public void cabecinha(int[] direcao){//metodo de fazer a cobra mecher
+
+    public void cabecinha(){//metodo de fazer a cobra mecher
         posicao = cobra.get(0);
         posicao[0] = posicao[0] + direcao[0];
         posicao[1] = posicao[1] + direcao[1];
         posicao = checkposicao(posicao);
-        preto(tabuleiro[posicao[0]][posicao[1]]);
-        cobra.set(0, posicao);
+        cobra.get(0)[0] = posicao[0];
+        cobra.get(0)[1] = posicao[1];
         comendo(posicao);
     }
 
