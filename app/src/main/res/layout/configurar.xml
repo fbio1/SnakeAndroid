@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Configurações"
+        android:textSize="30dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/letras"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Escolha a opção do jogo:"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Fácil"
+            android:checked="true"
+            android:textColor="@color/letras" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Normal"
+            android:textColor="@color/letras" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Difícil"
+            android:textColor="@color/letras" />
+    </RadioGroup>
+
+    <View android:layout_height="2dip"
+        android:layout_margin="10dp"
+        android:background="@color/letras"
+        android:layout_width="match_parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Você quer o tabuleiro:"
+        android:padding="10dp"/>
+
+    <RadioGroup
+        android:id="@+id/idgrup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/radio1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30x30"
+            android:checked="true"
+            android:textColor="@color/letras"/>
+        <RadioButton
+            android:id="@+id/radio2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40x40"
+            android:textColor="@color/letras"/>
+    </RadioGroup>
+
+    <View android:layout_height="2dip"
+        android:layout_margin="10dp"
+        android:background="@color/letras"
+        android:layout_width="match_parent" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Confirmar"
+            android:textColor="@color/letras"
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="10dp"
+            android:onClick="confirmar"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Sair"
+            android:textColor="@color/letras"
+            android:layout_margin="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:onClick="sair"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

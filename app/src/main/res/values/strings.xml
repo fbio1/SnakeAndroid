@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">Snake</string>
+    <string name="Sair">Sair</string>
+    <string name="Configurações">Configurações</string>
+    <string name="Começar">Novo Jogo</string>
+    <string name="Snake">Snake</string>
+    <string name="Fácil">Fácil</string>
+    <string name="Normal">Normal</string>
+    <string name="Difícil">Difícil</string>
+    <string name="Confirmar">Confirmar</string>
+</resources>

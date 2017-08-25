@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Snake</string>
+    <string name="Começar">New Game</string>
+    <string name="Configurações">Options</string>
+    <string name="Sair">Exit</string>
+    <string name="Snake" translatable="false">Snake</string>
+    <string name="Difícil">Hard</string>
+    <string name="Fácil">Easy</string>
+    <string name="Normal">Normal</string>
+    <string name="Confirmar">OK</string>
+</resources>
