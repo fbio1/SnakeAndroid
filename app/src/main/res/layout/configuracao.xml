@@ -20,23 +20,27 @@
         android:padding="10dp"/>
 
     <RadioGroup
+        android:id="@+id/difficult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp">
 
         <RadioButton
+            android:id="@+id/easy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Fácil"
             android:textColor="@color/letras" />
 
         <RadioButton
+            android:id="@+id/medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Normal"
             android:textColor="@color/letras" />
 
         <RadioButton
+            android:id="@+id/hard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Difícil"
@@ -62,13 +66,13 @@
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30x30"
+            android:text="28x28"
             android:textColor="@color/letras"/>
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="40x40"
+            android:text="34x34"
             android:textColor="@color/letras"/>
     </RadioGroup>
 

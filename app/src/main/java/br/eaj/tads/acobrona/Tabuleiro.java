@@ -1,22 +1,29 @@
 package br.eaj.tads.acobrona;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Config;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Tabuleiro extends AppCompatActivity {
+    private static final String PREF_SNAKE = "snake";
     private Boolean running = true;
     int n;
+    int difficult;
     GridLayout layout;
     ImageView tabuleiro[][];
     ArrayList<int[]> cobra = new ArrayList<>();
@@ -24,7 +31,7 @@ public class Tabuleiro extends AppCompatActivity {
     int posicao[] = new int[2];
     int fruit[] = new int[2];
     int pontuacao;
-
+    Context c = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +97,8 @@ public class Tabuleiro extends AppCompatActivity {
 
         Bundle recuperarDados = getIntent().getExtras();
         if (recuperarDados == null) {
-            n = 30;
+            n = 28;
+            difficult = 200;
             layout.setColumnCount(n);
             layout.setRowCount(n);
             tabuleiro = new ImageView[n][n];
@@ -104,6 +112,7 @@ public class Tabuleiro extends AppCompatActivity {
             }
         }else {
             n = recuperarDados.getInt("tam");
+            difficult = recuperarDados.getInt("difficult");
             layout.setColumnCount(n);
             layout.setRowCount(n);
             tabuleiro = new ImageView[n][n];
@@ -138,15 +147,14 @@ public class Tabuleiro extends AppCompatActivity {
          movimento(direcao);
          play.setVisibility(View.INVISIBLE);
          pause.setVisibility(View.VISIBLE);
-
     }
 
     public void pause(View v){
         ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
         play.setVisibility(View.VISIBLE);
-        ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
         running = false;
         movimento(direcao);
+        ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
         pause.setVisibility(View.INVISIBLE);
     }
 
@@ -156,7 +164,7 @@ public class Tabuleiro extends AppCompatActivity {
             public void run(){
                 while(running){
                     try {
-                        Thread.sleep(250);
+                        Thread.sleep(difficult);
                     } catch (InterruptedException e) {
                         e.printStackTrace();                    }
 
@@ -168,17 +176,35 @@ public class Tabuleiro extends AppCompatActivity {
                         //limpar
                         for (int i = 0; i < cobra.size(); i++) {
                             int[] pos = cobra.get(i);
-                            Log.i("TESTES_", "pintarbranco:" +pos[0]+pos[1]);
+//                            Log.i("TESTES_", "pintarbranco:" +pos[0]+pos[1]);
                             branco(tabuleiro[pos[0]][pos[1]]);
                         }
-                        //come
+
+                        //anda a cabeça
                         cabecinha();
-                        //anda
-                        comendo();
+                        //come
+                        eat();
+                        //anda o corpo
+
                         for (int i = cobra.size() - 1; i > 0; i--) {
-                            cobra.get(i)[0] = cobra.get(i-1)[0];
-                            cobra.get(i)[1] = cobra.get(i-1)[1];
+                            if (i!=0) {
+                                cobra.get(i)[0] = cobra.get(i - 1)[0];
+                                cobra.get(i)[1] = cobra.get(i - 1)[1];
+                            }else{
+                                cobra.get(i)[0] += posicao[0];
+                                cobra.get(i)[1] += posicao[1];
+                            }
                         }
+                        //Checar se a cabeça bateu no corpo
+                        for (int i = 1; i < cobra.size(); i++) {
+                            if (cobra.get(0)[0] == cobra.get(i)[0] && cobra.get(0)[1] == cobra.get(i)[1]) {
+                                Log.i("cobra", ""+cobra.get(i)[0]);
+                                Log.i("cobra", ""+cobra.get(i)[1]);
+                                running = false;
+                                Toast.makeText(c, "MORREU", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
                         //desenha
                         for (int i = 0; i < cobra.size(); i++) {
                             int[] pos = cobra.get(i);
@@ -192,38 +218,34 @@ public class Tabuleiro extends AppCompatActivity {
     }
 
 
-    public void cabecinha(){//metodo de fazer a cobra mecher
-        posicao = cobra.get(0);
+    public void cabecinha(){//metodo que faz cobra crescer
+//        posicao = cobra.get(0);
         posicao[0] = posicao[0] + direcao[0];
         posicao[1] = posicao[1] + direcao[1];
-        posicao = checkposicao(posicao);
         cobra.get(0)[0] = posicao[0];
         cobra.get(0)[1] = posicao[1];
-        comendo();
+        //chao para cima
+        if (cobra.get(0)[0] >= n && cobra.get(0)[1] < n) {
+            cobra.get(0)[0] = 0;
+        }
+        //direita para esquerda
+        else if (cobra.get(0)[0] < n && cobra.get(0)[1] >= n) {
+            cobra.get(0)[1] = 0;
+        }
+        if (cobra.get(0)[0] == -1) {
+            cobra.get(0)[0] = n - 1;
+        } else if (cobra.get(0)[1] == -1) {
+            cobra.get(0)[1] = n - 1;
+        }
     }
 
-    private int[] checkposicao(int[] posicao) {
-        if(posicao[0] == n-1){
-            posicao[0] = 0;
-        }
-        if(posicao[1] == n-1){
-            posicao[1] = 0;
-        }
-        if(posicao[0] == -1){
-            posicao[0] = n-1;
-        }
-        if(posicao[1] == -1){
-            posicao[1] = n-1;
-        }
-        return posicao;
-    }
-
-    public void comendo(){
-        if(posicao[0] == fruit[0] && posicao[1] == fruit[1]) {
+    public void eat(){
+        if(cobra.get(0)[0] == fruit[0] && cobra.get(0)[1] == fruit[1]) {
             fruta();
             TextView tv = (TextView) findViewById(R.id.textView3);
             pontuacao += 50;
             tv.setText("" + pontuacao);
+            difficult -= 2;
             cobra.add(new int[] {0,0});
         }
     }
@@ -244,5 +266,19 @@ public class Tabuleiro extends AppCompatActivity {
 
     public void preto(ImageView imageView){
         imageView.setImageResource(R.drawable.preto);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences settings = getSharedPreferences(PREF_SNAKE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+
+        //editor.putInt("", table[position[0]][position[1]]);
     }
 }

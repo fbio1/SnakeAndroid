@@ -16,14 +16,14 @@
         android:gravity="center"
         android:text="@string/Snake"
         android:textColor="@color/letras"
-        android:textSize="70dp"
+        android:textSize="65dp"
         android:layout_marginTop="30dp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="280dp"
+        android:layout_height="240dp"
         android:src="@drawable/snake" />
 
     <Button
@@ -39,6 +39,21 @@
         android:text="@string/Começar"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/letras"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/continuar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="casual"
+        android:padding="8dp"
+        android:onClick="botao4"
+        android:text="@string/Continuar"
         android:textColor="@color/letras"
         android:textSize="18dp"
         android:textStyle="bold" />
