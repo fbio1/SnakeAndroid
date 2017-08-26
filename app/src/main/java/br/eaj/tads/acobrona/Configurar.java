@@ -12,20 +12,20 @@ public class Configurar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.configurar);
+        setContentView(R.layout.configuracao);
         radioGroup = (RadioGroup) findViewById(R.id.idgrup);
     }
 
     public void confirmar(View v){
         if(R.id.radio1 == radioGroup.getCheckedRadioButtonId()){
-            Intent i = new Intent(c, Activity2.class);
+            Intent i = new Intent(c, Tabuleiro.class);
             Bundle params = new Bundle();
             params.putInt("tam", 30);
             i.putExtras(params);
             startActivity(i);
 //            finish();
         }else if(R.id.radio2 == radioGroup.getCheckedRadioButtonId()){
-            Intent i = new Intent(c, Activity2.class);
+            Intent i = new Intent(c, Tabuleiro.class);
             Bundle params = new Bundle();
             params.putInt("tam", 40);
             i.putExtras(params);

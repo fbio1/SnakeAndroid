@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Activity2 extends AppCompatActivity {
+public class Tabuleiro extends AppCompatActivity {
     private Boolean running = true;
     int n;
     GridLayout layout;
@@ -28,12 +28,15 @@ public class Activity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity2);
+        setContentView(R.layout.tabuleiro);
 
         final ImageButton cima = (ImageButton) findViewById(R.id.imageButton4);
         final ImageButton baixo = (ImageButton) findViewById(R.id.imageButton3);
         final ImageButton direito = (ImageButton) findViewById(R.id.imageButton2);
         final ImageButton esquerda = (ImageButton) findViewById(R.id.imageButton);
+
+        ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
+        play.setVisibility(View.INVISIBLE);
 
         cima.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -121,7 +124,6 @@ public class Activity2 extends AppCompatActivity {
 //      direcao que a cobra tem (pra cima)
         direcao[0] = -1;
         direcao[1] = 0;
-        int posicao[] = new int[2];
         posicao[0] = n/2;
         posicao[1] = n/2;
         cobra.add(posicao);
@@ -129,14 +131,23 @@ public class Activity2 extends AppCompatActivity {
         movimento(direcao);//inicia o moviemnto da cobra
     }
 
-    public void play(View v){
-        running = true;
-        movimento(direcao);
+     public void play(View v){
+         ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
+         ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
+         running = true;
+         movimento(direcao);
+         play.setVisibility(View.INVISIBLE);
+         pause.setVisibility(View.VISIBLE);
+
     }
 
     public void pause(View v){
+        ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
+        play.setVisibility(View.VISIBLE);
+        ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
         running = false;
         movimento(direcao);
+        pause.setVisibility(View.INVISIBLE);
     }
 
     public void movimento(final int[] direcao){
@@ -154,17 +165,21 @@ public class Activity2 extends AppCompatActivity {
                     public void run() {
                         //LIMPAR A TELA COM FOR DE COBRA INT[] COBRA:COBRA{BRANCO}
                         Log.i("TESTES_", "tamanho"+cobra.size());
+                        //limpar
                         for (int i = 0; i < cobra.size(); i++) {
                             int[] pos = cobra.get(i);
                             Log.i("TESTES_", "pintarbranco:" +pos[0]+pos[1]);
                             branco(tabuleiro[pos[0]][pos[1]]);
                         }
+                        //come
                         cabecinha();
-                        //move o corpo
-                        //if i !=0
-//                            cobra.get(i)[0] = cobra.get(i-1)[0];
-//                            cobra.get(i)[1] = cobra.get(i-1)[1];
-
+                        //anda
+                        comendo();
+                        for (int i = cobra.size() - 1; i > 0; i--) {
+                            cobra.get(i)[0] = cobra.get(i-1)[0];
+                            cobra.get(i)[1] = cobra.get(i-1)[1];
+                        }
+                        //desenha
                         for (int i = 0; i < cobra.size(); i++) {
                             int[] pos = cobra.get(i);
                             preto(tabuleiro[pos[0]][pos[1]]);
@@ -184,7 +199,7 @@ public class Activity2 extends AppCompatActivity {
         posicao = checkposicao(posicao);
         cobra.get(0)[0] = posicao[0];
         cobra.get(0)[1] = posicao[1];
-        comendo(posicao);
+        comendo();
     }
 
     private int[] checkposicao(int[] posicao) {
@@ -203,14 +218,13 @@ public class Activity2 extends AppCompatActivity {
         return posicao;
     }
 
-    public void comendo(int[] pos){
-        if(pos[0] == fruit[0] && pos[1] == fruit[1]){
-            vermelho(tabuleiro[pos[0]][pos[1]]);
+    public void comendo(){
+        if(posicao[0] == fruit[0] && posicao[1] == fruit[1]) {
             fruta();
             TextView tv = (TextView) findViewById(R.id.textView3);
             pontuacao += 50;
-            tv.setText(""+ pontuacao);
-//            cobra.add(novaposicao);
+            tv.setText("" + pontuacao);
+            cobra.add(new int[] {0,0});
         }
     }
 

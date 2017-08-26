@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
-    tools:context="br.eaj.tads.acobrona.MainActivity">
+    tools:context="br.eaj.tads.acobrona.Principal">
 
     <TextView
         android:id="@+id/textView"
