@@ -2,6 +2,7 @@ package br.eaj.tads.acobrona;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +43,10 @@ public class Principal extends AppCompatActivity {
         }else{
             continuar.setVisibility(View.GONE);
         }
+
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.musica);
+        mp.start();
+        mp.isLooping();
     }
 
     public void start(View v) {
