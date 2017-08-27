@@ -1,6 +1,7 @@
 package br.eaj.tads.acobrona;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -125,26 +126,20 @@ public class Tabuleiro extends AppCompatActivity {
                 }
             }
         }
-       criandoDemonio();
-    }
-
-    public void criandoDemonio(){
-        preto(tabuleiro[n/2][n/2]);
-//      direcao que a cobra tem (pra cima)
-        direcao[0] = -1;
-        direcao[1] = 0;
         posicao[0] = n/2;
         posicao[1] = n/2;
-        cobra.add(posicao);
+        cobra.add(0, posicao);
         fruta();
-        movimento(direcao);//inicia o moviemnto da cobra
+        direcao[0] = -1;
+        direcao[1] = 0;
+        movimento();
     }
 
      public void play(View v){
          ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
          ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
          running = true;
-         movimento(direcao);
+         movimento();
          play.setVisibility(View.INVISIBLE);
          pause.setVisibility(View.VISIBLE);
     }
@@ -153,12 +148,12 @@ public class Tabuleiro extends AppCompatActivity {
         ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
         play.setVisibility(View.VISIBLE);
         running = false;
-        movimento(direcao);
+        movimento();
         ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
         pause.setVisibility(View.INVISIBLE);
     }
 
-    public void movimento(final int[] direcao){
+    public void movimento(){
         final Handler handler = new Handler();
         new  Thread(new Runnable(){
             public void run(){
@@ -171,44 +166,55 @@ public class Tabuleiro extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        //LIMPAR A TELA COM FOR DE COBRA INT[] COBRA:COBRA{BRANCO}
-                        Log.i("TESTES_", "tamanho"+cobra.size());
-                        //limpar
+                        //verifica se a cobra comeu a fruta
+                        if(cobra.get(0)[0] == fruit[0] && cobra.get(0)[1] == fruit[1]) {
+                            TextView tv = (TextView) findViewById(R.id.textView3);
+                            pontuacao += 50;
+                            tv.setText("" + pontuacao);
+                            difficult -= 2;
+                            int lastPosicao = cobra.size();
+                            int pos[] = new int[2];
+                            pos[0] = cobra.get(lastPosicao - 1)[0];
+                            pos[1] = cobra.get(lastPosicao - 1)[1];
+                            cobra.add(lastPosicao, pos);
+                            fruta();
+                        }
+                        //Log.i("TESTES_", "tamanho"+cobra.size());
+
+                        //limpa a tela
                         for (int i = 0; i < cobra.size(); i++) {
                             int[] pos = cobra.get(i);
-//                            Log.i("TESTES_", "pintarbranco:" +pos[0]+pos[1]);
+                            //Log.i("TESTES_", "pintarbranco:" +pos[0]+pos[1]);
                             branco(tabuleiro[pos[0]][pos[1]]);
                         }
 
-                        //anda a cabeça
-                        cabecinha();
-                        //come
-                        eat();
-                        //anda o corpo
-
-                        for (int i = cobra.size() - 1; i > 0; i--) {
-                            if (i!=0) {
-                                cobra.get(i)[0] = cobra.get(i - 1)[0];
-                                cobra.get(i)[1] = cobra.get(i - 1)[1];
-                            }else{
-                                cobra.get(i)[0] += posicao[0];
-                                cobra.get(i)[1] += posicao[1];
-                            }
+                        //movimento do corpo
+                        for (int i = cobra.size()-1; i > 0; i--) {//pega a ultima posiçao da cobra e adiciona a posiçao posterior
+                            cobra.get(i)[0] = cobra.get(i - 1)[0];
+                            cobra.get(i)[1] = cobra.get(i - 1)[1];
                         }
+
+                        //movimento da cabeça da cobra
+                            //se colocar antes, a cobra so cresce se depois de duas frutas
+                        head();
+
+                        //desenha a cobra
+                        for (int i = 0; i < cobra.size(); i++) {
+                            int[] pos = cobra.get(i);
+                            preto(tabuleiro[pos[0]][pos[1]]);
+                        }
+
                         //Checar se a cabeça bateu no corpo
                         for (int i = 1; i < cobra.size(); i++) {
                             if (cobra.get(0)[0] == cobra.get(i)[0] && cobra.get(0)[1] == cobra.get(i)[1]) {
                                 Log.i("cobra", ""+cobra.get(i)[0]);
                                 Log.i("cobra", ""+cobra.get(i)[1]);
                                 running = false;
-                                Toast.makeText(c, "MORREU", Toast.LENGTH_SHORT).show();
+                                Intent config = new Intent(c, GameOver.class);
+                                config.putExtra("pontos", pontuacao);
+                                startActivity(config);
+                                finish();
                             }
-                        }
-
-                        //desenha
-                        for (int i = 0; i < cobra.size(); i++) {
-                            int[] pos = cobra.get(i);
-                            preto(tabuleiro[pos[0]][pos[1]]);
                         }
                     }
                 });
@@ -218,8 +224,7 @@ public class Tabuleiro extends AppCompatActivity {
     }
 
 
-    public void cabecinha(){//metodo que faz cobra crescer
-//        posicao = cobra.get(0);
+    public void head(){//metodo que faz cobra crescer
         posicao[0] = posicao[0] + direcao[0];
         posicao[1] = posicao[1] + direcao[1];
         cobra.get(0)[0] = posicao[0];
@@ -239,17 +244,7 @@ public class Tabuleiro extends AppCompatActivity {
         }
     }
 
-    public void eat(){
-        if(cobra.get(0)[0] == fruit[0] && cobra.get(0)[1] == fruit[1]) {
-            fruta();
-            TextView tv = (TextView) findViewById(R.id.textView3);
-            pontuacao += 50;
-            tv.setText("" + pontuacao);
-            difficult -= 2;
-            cobra.add(new int[] {0,0});
-        }
-    }
-
+    //Cria randomicamente a fruta no gridlayout
     public void fruta(){
         fruit[0] = new Random().nextInt(n-1);
         fruit[1] = new Random().nextInt(n-1);
@@ -278,7 +273,6 @@ public class Tabuleiro extends AppCompatActivity {
         super.onStop();
         SharedPreferences settings = getSharedPreferences(PREF_SNAKE, MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-
         //editor.putInt("", table[position[0]][position[1]]);
     }
 }
