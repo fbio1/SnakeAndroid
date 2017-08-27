@@ -110,16 +110,17 @@ public class Tabuleiro extends AppCompatActivity {
             }
         }
 
-//        if (){
-//
-//        }
-//        posicao[0] = n/2;
-//        posicao[1] = n/2;
-//        cobra.add(0, posicao);
-        gerar();
+        posicao[0] = n/2;
+        posicao[1] = n/2;
+        cobra.add(0, posicao);
+
         fruta();
         direcao[0] = -1;
         direcao[1] = 0;
+//        gerar();
+
+        //Log.i("TESTE", ""+direcao);
+
         pontos.setText(""+ pontuacao);
         movimento();
     }
@@ -190,6 +191,7 @@ public class Tabuleiro extends AppCompatActivity {
                         //desenha a cobra
                         for (int i = 0; i < cobra.size(); i++) {
                             int[] pos = cobra.get(i);
+                            //Log.i("TESTE", ""+cobra.size());
                             preto(tabuleiro[pos[0]][pos[1]]);
                         }
 
@@ -212,25 +214,35 @@ public class Tabuleiro extends AppCompatActivity {
         }).start();
     }
 
-
     public void head(){//metodo que faz cobra crescer
-        posicao[0] = posicao[0] + direcao[0];
-        posicao[1] = posicao[1] + direcao[1];
-        cobra.get(0)[0] = posicao[0];
-        cobra.get(0)[1] = posicao[1];
-        //chao para cima
-        if (cobra.get(0)[0] >= n && cobra.get(0)[1] < n) {
+
+        //Log.i("TESTES_", "Movimenta cabeca: " + cobra.get(0)[0] + "," + cobra.get(0)[1] + " + direcao: " + direcao[0] + "," + direcao[1] );
+
+        cobra.get(0)[0] += direcao[0];
+        cobra.get(0)[1] += direcao[1];
+
+        //baixo para cima
+        if (cobra.get(0)[0] == n) {
+            //Log.i("TESTE_", "Case X == "+ n);
             cobra.get(0)[0] = 0;
         }
-        //direita para esquerda
-        else if (cobra.get(0)[0] < n && cobra.get(0)[1] >= n) {
+        //cima para baixo
+        if (cobra.get(0)[1] == n) {
+            //Log.i("TESTE_", "Case Y == "+ n);
             cobra.get(0)[1] = 0;
         }
+        //esquerda para direita
         if (cobra.get(0)[0] == -1) {
+            //Log.i("TESTE_", "Case X == -1");
             cobra.get(0)[0] = n - 1;
-        } else if (cobra.get(0)[1] == -1) {
+        }
+        //direita para esqueda
+        if (cobra.get(0)[1] == -1) {
+            //Log.i("TESTE_", "Case Y == -1");
             cobra.get(0)[1] = n - 1;
         }
+
+        //Log.i("TESTES_", "Cabeca: " + cobra.get(0)[0] + "," + cobra.get(0)[1] );
     }
 
     //Cria randomicamente a fruta no gridlayout
@@ -249,19 +261,20 @@ public class Tabuleiro extends AppCompatActivity {
         finish();
     }
 
-//    private int[] NOVA_COBRA = new int[2];
-    public void gerar(){
-
-        String cobra1 = "10,1-10,2-10,3-10,4";
-        String[] posicoes = cobra1.split("-");
-
-        for (int i = 0; i < posicoes.length; i++) {
-            String[] pos_string = posicoes[i].split(",");
-            cobra.add(new int[] {Integer.parseInt(pos_string[0]), Integer.parseInt(pos_string[1])});
-            Log.i("TESTE", "" + cobra.size());
-        }
-
-    }
+//    public void gerar(){
+//
+////        String dados = String.valueOf(posicao);
+//        String cobra1 = "10,1-10,2-10,3";
+////        Log.i("TESTE", ""+cobra1.toString());
+//        String[] posicoes = cobra1.split("-");
+////        Log.i("TESTE", "ENTROU NO METODO");
+//        for (int i = 0; i < posicoes.length; i++) {
+//            String[] pos_string = posicoes[i].split(",");
+//            cobra.add(new int[] {Integer.parseInt(pos_string[0]), Integer.parseInt(pos_string[1])});
+////            pontuacao = pos_string.length*50;
+////            Log.i("TESTE", "" + cobra.size());
+//        }
+//    }
 
     public void vermelho(ImageView imageView){
         imageView.setImageResource(R.drawable.vermelho);

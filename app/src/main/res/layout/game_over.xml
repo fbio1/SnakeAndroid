@@ -48,35 +48,30 @@
             android:id="@+id/pontos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="text"
-            android:textSize="18dp"
             android:layout_marginLeft="10dp"
+            android:text="text"
             android:textAllCaps="true"
             android:textColor="@color/letras"
-            android:textStyle="bold"/>
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_marginTop="50dp">
 
         <Button
             android:id="@+id/button2"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            android:padding="10dp"
+            android:padding="8dp"
             android:onClick="finish"
             android:text="@string/Sair"
             android:elevation="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
             android:textStyle="bold"
             android:textColor="@color/letras"
             android:fontFamily="casual"
             android:textSize="18dp" />
-    </LinearLayout>
+
 
 </LinearLayout>
