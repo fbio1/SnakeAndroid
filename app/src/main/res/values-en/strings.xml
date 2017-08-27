@@ -9,4 +9,9 @@
     <string name="Fácil">Easy</string>
     <string name="Normal">Normal</string>
     <string name="Confirmar">OK</string>
+    <string name="NovoJogo">New Game</string>
+    <string name="Continuar">Continue</string>
+    <string name="pontuacao">Your score was:</string>
+    <string name="vocePerdeu">You lose!</string>
+    <string name="salvaesair">Save and Exit</string>
 </resources>

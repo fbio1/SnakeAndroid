@@ -2,26 +2,21 @@ package br.eaj.tads.acobrona;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Config;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Tabuleiro extends AppCompatActivity {
-    private static final String PREF_SNAKE = "snake";
     private Boolean running = true;
     int n;
     int difficult;
@@ -33,11 +28,14 @@ public class Tabuleiro extends AppCompatActivity {
     int fruit[] = new int[2];
     int pontuacao;
     Context c = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabuleiro);
 
+        layout = (GridLayout) findViewById(R.id.gridlayout);
+        TextView pontos = (TextView) findViewById(R.id.textView3);
         final ImageButton cima = (ImageButton) findViewById(R.id.imageButton4);
         final ImageButton baixo = (ImageButton) findViewById(R.id.imageButton3);
         final ImageButton direito = (ImageButton) findViewById(R.id.imageButton2);
@@ -45,6 +43,8 @@ public class Tabuleiro extends AppCompatActivity {
 
         ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
         play.setVisibility(View.INVISIBLE);
+
+
 
         cima.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -94,44 +94,33 @@ public class Tabuleiro extends AppCompatActivity {
             }
         });
 
-        layout = (GridLayout) findViewById(R.id.gridlayout);
-
         Bundle recuperarDados = getIntent().getExtras();
-        if (recuperarDados == null) {
-            n = 28;
-            difficult = 200;
-            layout.setColumnCount(n);
-            layout.setRowCount(n);
-            tabuleiro = new ImageView[n][n];
-            for (int i = 0; i<n;i++){
-                for (int j = 0; j<n;j++){
-                    LayoutInflater inflater = LayoutInflater.from(this);
-                    ImageView image = (ImageView) inflater.inflate(R.layout.inflate_image_view, layout, false);
-                    tabuleiro[i][j] = image;
-                    layout.addView(image);
-                }
-            }
-        }else {
-            n = recuperarDados.getInt("tam");
-            difficult = recuperarDados.getInt("difficult");
-            layout.setColumnCount(n);
-            layout.setRowCount(n);
-            tabuleiro = new ImageView[n][n];
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    LayoutInflater inflater = LayoutInflater.from(this);
-                    ImageView image = (ImageView) inflater.inflate(R.layout.inflate_image_view, layout, false);
-                    tabuleiro[i][j] = image;
-                    layout.addView(image);
-                }
+        n = recuperarDados.getInt("tam");
+        difficult = recuperarDados.getInt("difficult");
+        pontuacao = recuperarDados.getInt("pontuacao");
+        layout.setColumnCount(n);
+        layout.setRowCount(n);
+        tabuleiro = new ImageView[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                LayoutInflater inflater = LayoutInflater.from(this);
+                ImageView image = (ImageView) inflater.inflate(R.layout.inflate_image_view, layout, false);
+                tabuleiro[i][j] = image;
+                layout.addView(image);
             }
         }
-        posicao[0] = n/2;
-        posicao[1] = n/2;
-        cobra.add(0, posicao);
+
+//        if (){
+//
+//        }
+//        posicao[0] = n/2;
+//        posicao[1] = n/2;
+//        cobra.add(0, posicao);
+        gerar();
         fruta();
         direcao[0] = -1;
         direcao[1] = 0;
+        pontos.setText(""+ pontuacao);
         movimento();
     }
 
@@ -211,7 +200,7 @@ public class Tabuleiro extends AppCompatActivity {
                                 Log.i("cobra", ""+cobra.get(i)[1]);
                                 running = false;
                                 Intent config = new Intent(c, GameOver.class);
-                                config.putExtra("pontos", pontuacao);
+                                config.putExtra("pontos", ""+pontuacao);
                                 startActivity(config);
                                 finish();
                             }
@@ -251,6 +240,29 @@ public class Tabuleiro extends AppCompatActivity {
         vermelho(tabuleiro[fruit[0]][fruit[1]]);
     }
 
+    public void salvar(View v){
+        Intent intent = new Intent(c , Principal.class);
+        Bundle parans = new Bundle();
+        parans.putInt("pontuacao", pontuacao);
+        intent.putExtras(parans);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+//    private int[] NOVA_COBRA = new int[2];
+    public void gerar(){
+
+        String cobra1 = "10,1-10,2-10,3-10,4";
+        String[] posicoes = cobra1.split("-");
+
+        for (int i = 0; i < posicoes.length; i++) {
+            String[] pos_string = posicoes[i].split(",");
+            cobra.add(new int[] {Integer.parseInt(pos_string[0]), Integer.parseInt(pos_string[1])});
+            Log.i("TESTE", "" + cobra.size());
+        }
+
+    }
+
     public void vermelho(ImageView imageView){
         imageView.setImageResource(R.drawable.vermelho);
     }
@@ -263,16 +275,4 @@ public class Tabuleiro extends AppCompatActivity {
         imageView.setImageResource(R.drawable.preto);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SharedPreferences settings = getSharedPreferences(PREF_SNAKE, MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        //editor.putInt("", table[position[0]][position[1]]);
-    }
 }

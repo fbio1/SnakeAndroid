@@ -9,4 +9,8 @@
     <string name="Difícil">Difícil</string>
     <string name="Confirmar">Confirmar</string>
     <string name="Continuar">Continuar</string>
+    <string name="NovoJogo">Novo Jogo</string>
+    <string name="vocePerdeu">Você perdeu!</string>
+    <string name="pontuacao">Sua pontuação foi: </string>
+    <string name="salvaesair">Salvar e sair</string>
 </resources>

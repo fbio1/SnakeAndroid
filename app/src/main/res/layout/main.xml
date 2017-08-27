@@ -34,11 +34,11 @@
         android:layout_marginTop="15dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="casual"
-        android:onClick="botao1"
+        android:onClick="start"
         android:padding="8dp"
         android:text="@string/Começar"
+        android:elevation="10dp"
         android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="@color/letras"
         android:textSize="18dp"
         android:textStyle="bold" />
@@ -51,13 +51,13 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="casual"
+        android:elevation="10dp"
         android:padding="8dp"
-        android:onClick="botao4"
+        android:onClick="continuar"
         android:text="@string/Continuar"
         android:textColor="@color/letras"
         android:textSize="18dp"
         android:textStyle="bold" />
-
     <Button
         android:id="@+id/configurar"
         android:layout_width="200dp"
@@ -65,13 +65,14 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimaryDark"
+        android:elevation="10dp"
         android:fontFamily="casual"
+        android:textStyle="bold"
+        android:onClick="config"
         android:padding="8dp"
-        android:onClick="botao2"
         android:text="@string/Configurações"
         android:textColor="@color/letras"
-        android:textSize="18dp"
-        android:textStyle="bold" />
+        android:textSize="18dp"/>
 
     <Button
         android:id="@+id/sair"
@@ -82,10 +83,13 @@
         android:background="@color/colorPrimaryDark"
         android:fontFamily="casual"
         android:padding="8dp"
+        android:elevation="10dp"
         android:text="@string/Sair"
-        android:onClick="botao3"
+        android:onClick="sair"
         android:textColor="@color/letras"
         android:textSize="18dp"
         android:textStyle="bold" />
+
+
 
 </LinearLayout>

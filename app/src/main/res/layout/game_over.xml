@@ -5,34 +5,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     tools:context="br.eaj.tads.acobrona.GameOver">
 
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/vocePerdeu"
+        android:textSize="40dp"
+        android:fontFamily="casual"
+        android:textColor="@color/letras"/>
+
     <ImageView
+        android:layout_marginTop="50dp"
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/snakeDead"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/colorPrimaryDark"
+        android:src="@drawable/dead" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp">
 
-        <Button
-            android:id="@+id/button"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:text="Novo Jogo"
+            android:text="@string/pontuacao"
+            android:textSize="18dp"
             android:textColor="@color/letras"
-            android:padding="10dp"
-            android:textSize="18dp" />
+            android:layout_gravity="center"
+            android:fontFamily="casual"
+            android:textAllCaps="true"
+            android:textStyle="bold"/>
 
-        <Button
+        <TextView
+            android:id="@+id/pontos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="text"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="true"
+            android:textColor="@color/letras"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginTop="50dp">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="10dp"
+            android:onClick="finish"
             android:text="@string/Sair"
-            android:background="@color/colorPrimaryDark"
-            />
+            android:elevation="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/letras"
+            android:fontFamily="casual"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </LinearLayout>
