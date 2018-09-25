@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.eaj.tads.acobrona">
+    package="br.eaj.tads.snack">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Principal"
+            android:name="br.eaj.tads.snack.MainActivity"
             android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Tabuleiro"
+            android:name="br.eaj.tads.snack.Tabuleiro"
             android:screenOrientation="locked" />
         <activity
-            android:name=".Configurar"
+            android:name="br.eaj.tads.snack.Configurar"
             android:screenOrientation="locked" />
-        <activity android:name=".GameOver"></activity>
+        <activity android:name="br.eaj.tads.snack.GameOver"></activity>
     </application>
 
 </manifest>

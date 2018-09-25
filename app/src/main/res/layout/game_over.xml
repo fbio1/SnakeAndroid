@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
-    tools:context="br.eaj.tads.acobrona.GameOver">
+    tools:context="br.eaj.tads.snack.GameOver">
 
     <TextView
         android:layout_marginTop="50dp"

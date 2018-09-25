@@ -1,4 +1,4 @@
-package br.eaj.tads.acobrona;
+package br.eaj.tads.snack;
 
 import org.junit.Test;
 

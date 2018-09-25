@@ -1,4 +1,4 @@
-package br.eaj.tads.acobrona;
+package br.eaj.tads.snack;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,16 +35,17 @@ public class Tabuleiro extends AppCompatActivity {
         setContentView(R.layout.tabuleiro);
 
         layout = (GridLayout) findViewById(R.id.gridlayout);
-        TextView pontos = (TextView) findViewById(R.id.textView3);
+        TextView pontos = (TextView) findViewById(R.id.points);
         final ImageButton cima = (ImageButton) findViewById(R.id.imageButton4);
         final ImageButton baixo = (ImageButton) findViewById(R.id.imageButton3);
         final ImageButton direito = (ImageButton) findViewById(R.id.imageButton2);
         final ImageButton esquerda = (ImageButton) findViewById(R.id.imageButton);
 
-        ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
-        play.setVisibility(View.INVISIBLE);
+//        ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
+//        play.setVisibility(View.INVISIBLE);
 
-
+        ImageButton play_tab = (ImageButton) findViewById(R.id.play_tab);
+        play_tab.setVisibility(View.INVISIBLE);
 
         cima.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -125,22 +126,22 @@ public class Tabuleiro extends AppCompatActivity {
         movimento();
     }
 
-     public void play(View v){
-         ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
-         ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
-         running = true;
-         movimento();
-         play.setVisibility(View.INVISIBLE);
-         pause.setVisibility(View.VISIBLE);
+    public void play_tab(View v){
+        ImageButton play_tab = (ImageButton) findViewById(R.id.play_tab);
+        ImageButton pause_tab = (ImageButton) findViewById(R.id.pause_tab);
+        running = true;
+        movimento();
+        play_tab.setVisibility(View.INVISIBLE);
+        pause_tab.setVisibility(View.VISIBLE);
     }
 
-    public void pause(View v){
-        ImageButton play = (ImageButton) findViewById(R.id.imageButton6);
-        play.setVisibility(View.VISIBLE);
+    public void pause_tab(View v){
+        ImageButton play_tab = (ImageButton) findViewById(R.id.play_tab);
+        play_tab.setVisibility(View.VISIBLE);
         running = false;
         movimento();
-        ImageButton pause = (ImageButton) findViewById(R.id.imageButton5);
-        pause.setVisibility(View.INVISIBLE);
+        ImageButton pause_tab = (ImageButton) findViewById(R.id.pause_tab);
+        pause_tab.setVisibility(View.INVISIBLE);
     }
 
     public void movimento(){
@@ -158,7 +159,7 @@ public class Tabuleiro extends AppCompatActivity {
                     public void run() {
                         //verifica se a cobra comeu a fruta
                         if(cobra.get(0)[0] == fruit[0] && cobra.get(0)[1] == fruit[1]) {
-                            TextView tv = (TextView) findViewById(R.id.textView3);
+                            TextView tv = (TextView) findViewById(R.id.points);
                             pontuacao += 50;
                             tv.setText("" + pontuacao);
                             difficult -= 2;
@@ -253,7 +254,7 @@ public class Tabuleiro extends AppCompatActivity {
     }
 
     public void salvar(View v){
-        Intent intent = new Intent(c , Principal.class);
+        Intent intent = new Intent(c , MainActivity.class);
         Bundle parans = new Bundle();
         parans.putInt("pontuacao", pontuacao);
         intent.putExtras(parans);

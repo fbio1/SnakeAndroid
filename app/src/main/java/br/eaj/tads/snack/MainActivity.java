@@ -1,4 +1,4 @@
-package br.eaj.tads.acobrona;
+package br.eaj.tads.snack;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class Principal extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private static final String TAMGRID = "TAMGRID";
     private static final String DIFICULDADE = "DIFICULDADE";
     private static final String PONTUACAO = "PONTUACAO";
@@ -44,9 +44,9 @@ public class Principal extends AppCompatActivity {
             continuar.setVisibility(View.GONE);
         }
 
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.musica);
-        mp.start();
-        mp.isLooping();
+//        MediaPlayer mp = MediaPlayer.create(this, R.raw.musica);
+//        mp.start();
+//        mp.isLooping();
     }
 
     public void start(View v) {
@@ -102,9 +102,9 @@ public class Principal extends AppCompatActivity {
         }
     }
 
-    public void sair(View v) {
-        finish();
-    }
+//    public void sair(View v) {
+//        finish();
+//    }
 
     @Override
     protected void onStop() {

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
-    tools:context="br.eaj.tads.acobrona.Principal">
+    tools:context="br.eaj.tads.snack.MainActivity">
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:fontFamily="casual"
         android:gravity="center"
         android:text="@string/Snake"
         android:textColor="@color/letras"
-        android:textSize="65dp"
+        android:textSize="70sp"
         android:layout_marginTop="30dp"
         android:textStyle="bold" />
 
@@ -31,8 +31,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttons"
         android:fontFamily="casual"
         android:onClick="start"
         android:padding="8dp"
@@ -40,7 +40,7 @@
         android:elevation="10dp"
         android:textAllCaps="true"
         android:textColor="@color/letras"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <Button
@@ -49,14 +49,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/buttons"
         android:fontFamily="casual"
         android:elevation="10dp"
         android:padding="8dp"
         android:onClick="continuar"
         android:text="@string/Continuar"
         android:textColor="@color/letras"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="bold" />
     <Button
         android:id="@+id/configurar"
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/buttons"
         android:elevation="10dp"
         android:fontFamily="casual"
         android:textStyle="bold"
@@ -72,24 +72,5 @@
         android:padding="8dp"
         android:text="@string/Configurações"
         android:textColor="@color/letras"
-        android:textSize="18dp"/>
-
-    <Button
-        android:id="@+id/sair"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@color/colorPrimaryDark"
-        android:fontFamily="casual"
-        android:padding="8dp"
-        android:elevation="10dp"
-        android:text="@string/Sair"
-        android:onClick="sair"
-        android:textColor="@color/letras"
-        android:textSize="18dp"
-        android:textStyle="bold" />
-
-
-
+        android:textSize="18sp"/>
 </LinearLayout>
