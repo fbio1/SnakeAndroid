@@ -24,7 +24,9 @@
         <activity
             android:name="br.eaj.tads.snack.Configurar"
             android:screenOrientation="locked" />
-        <activity android:name="br.eaj.tads.snack.GameOver"></activity>
+
+        <activity android:name="br.eaj.tads.snack.GameOver"
+            android:screenOrientation="locked" />
     </application>
 
 </manifest>
